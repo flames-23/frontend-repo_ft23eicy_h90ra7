@@ -1,5 +1,5 @@
 import { Suspense, useMemo, useRef } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
+import { Canvas, useFrame, extend } from '@react-three/fiber'
 import { Environment, Float, OrbitControls, PerspectiveCamera, Sparkles, shaderMaterial } from '@react-three/drei'
 import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing'
 import * as THREE from 'three'
@@ -18,6 +18,9 @@ const GridMaterial = shaderMaterial(
     gl_FragColor = vec4(col, 1.0);
   }`
 )
+
+// Register the custom material so it can be used as <gridMaterial />
+extend({ GridMaterial })
 
 function NeonGrid() {
   const matRef = useRef()
@@ -125,7 +128,3 @@ export default function Hero3D() {
     </section>
   )
 }
-
-// register custom material
-// eslint-disable-next-line react-refresh/only-export-components
-export { GridMaterial as gridMaterial }
